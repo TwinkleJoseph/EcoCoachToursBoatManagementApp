@@ -5,6 +5,8 @@ import { Request, Response } from "express";
 import { Constants } from "../common/app.constants";
 import { connection } from '../connections/db'
 
+const logger = require('../logger/logging')
+
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export class BoatController {
 
@@ -14,7 +16,7 @@ export class BoatController {
      * @param res 
      */
     public createBoat(req: Request, res: Response) {
-      console.log('BoatController.deleteBoat() method')
+      logger.info('BoatController.deleteBoat() method')
     }
 
     /**
@@ -23,7 +25,7 @@ export class BoatController {
      * @param res 
      */
     public findAllBoats (req: Request, res: Response) {
-      console.log('BoatController.findAllBoats() method')
+      logger.info('BoatController.findAllBoats() method')
     }
 
     /**
@@ -32,7 +34,7 @@ export class BoatController {
      * @param res 
      */
     public findBoatById (req: Request, res: Response){
-      console.log('BoatController.findBoatById() method')
+      logger.info('BoatController.findBoatById() method')
     }
 
     /**
@@ -41,7 +43,7 @@ export class BoatController {
      * @param res 
      */
     public findBoatsByStatus (req: Request, res: Response){
-      console.log('BoatController.findBoatsByStatus() method')
+      logger.info('BoatController.findBoatsByStatus() method')
     }
 
     /**
@@ -50,7 +52,7 @@ export class BoatController {
      * @param res 
      */
     public updateBoat(req: Request, res: Response){
-      console.log('BoatController.updateBoat() method')
+      logger.info('BoatController.updateBoat() method')
     }
 
     /**
@@ -59,7 +61,7 @@ export class BoatController {
      * @param res 
      */
     public deleteBoat(req: Request, res: Response){
-      console.log('BoatController.deleteBoat() method')
+      logger.info('BoatController.deleteBoat() method')
     }
 
 }

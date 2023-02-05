@@ -2,6 +2,8 @@ import { Request, Response } from "express"
 import { Constants } from "../common/app.constants";
 import { BoatController } from "../controllers/boat.controller"
 
+const log = require('../logger/logging')
+
 export class Routes {
 
     private boatController: BoatController;
@@ -12,7 +14,7 @@ export class Routes {
     }
 
     public routes (app: any): void {
-        console.log('Routes.routes() start')
+        log.info('Routes.routes() start')
 
         // This "health check" route can be used to verify if the server is up.
         app.route('/health').get((_req:Request, resp: Response) => {

@@ -1,6 +1,8 @@
 import { EntityManager, EntityRepository } from "typeorm";
 import { Boat } from "../entities/boat";
 
+const logger = require('../logger/logging')
+
 
 @EntityRepository(Boat)
 export class BoatRepository {
@@ -11,44 +13,42 @@ export class BoatRepository {
     }
 
     public async createOrUpdateBoat (reqBoat: Boat) {
-       console.log('BoatRepository.createBoat() start')
-        const Boat = await this.manager.save(reqBoat)
-        return Boat
+      logger.info('BoatRepository.createBoat() start')
+      const Boat = await this.manager.save(reqBoat)
+      return Boat
     }
 
     public async findAllBoats () {
-        console.log('BoatRepository.findAllBoats() method')
-        const Boats = await this.manager.find(Boat)
-       console.log('BoatRepository.findAllBoats() end')
-        return Boats
+      logger.info('BoatRepository.findAllBoats() method')
+      const boats = await this.manager.find(Boat)
+      logger.info('BoatRepository.findAllBoats() end')
+      return boats
     }
 
     public async findByBoatId (boatId:string) {
-        console.log('BoatRepository.findByBoatId() method')
-        const boat = await this.manager.findOne(Boat, { id:boatId }
-          )
-       console.log('BoatRepository.findByBoatId() end')
-        return boat
+      logger.info('BoatRepository.findByBoatId() method')
+      const boat = await this.manager.findOne(Boat, { id:boatId })
+      logger.info('BoatRepository.findByBoatId() end')
+      return boat
     }
 
     public async findByStatus (status:string) {
-        console.log('BoatRepository.findByStatus() method')
-        console.log('status in repo ',status)
+      logger.info('BoatRepository.findByStatus() method')
+      logger.info('status in repo ',status)
 
-        const Boats = await this.manager.createQueryBuilder(Boat, 'Boat')
+      const Boats = await this.manager.createQueryBuilder(Boat, 'Boat')
         .where('Boat.status = :status', { status: status })
         .getMany() 
-       console.log('BoatRepository.findByStatus() end')
-        console.log('Boats from repo',Boats)
-        return Boats
+      logger.info('BoatRepository.findByStatus() end')
+      logger.info('Boats from repo',Boats)
+      return Boats
     }
 
     public async deleteByBoatId(boatId: string) {
-        console.log('BoatRepository.deleteByBoatId() method')
-        const boat = await this.manager.delete(Boat, { id:boatId }
-          )
-       console.log('BoatRepository.deleteByBoatId() end')
-        return boat
+      logger.info('BoatRepository.deleteByBoatId() method')
+      const boat = await this.manager.delete(Boat, { id:boatId })
+      logger.info('BoatRepository.deleteByBoatId() end')
+      return boat
     }
    
 
