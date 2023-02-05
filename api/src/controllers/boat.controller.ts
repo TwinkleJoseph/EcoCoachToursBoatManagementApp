@@ -158,6 +158,29 @@ export class BoatController {
      */
     public deleteBoat(req: Request, res: Response){
       logger.info('BoatController.deleteBoat() method')
+      const boatServices:BoatServices = new BoatServices()
+      const errorHandler:ErrorHandler = new ErrorHandler()
+      let userDefinedMessage: string
+      connection
+        .then(async () => {
+          const boatId = req.params.id
+          const boat = await boatServices.deleteByBoatId(boatId)
+          if (boat !== null && typeof (boat) !== Constants.UNDEFINED) {
+            res.status(Constants.OK)
+              .json({
+                message: Constants.SUCCESSFULLY_DELETED_MESSAGE,
+                boat: boat
+              })
+          } else {
+            userDefinedMessage = Constants.BOAT_NOT_FOUND_MESSAGE
+            errorHandler.handleValidationError(res, Constants.DELETE_BOAT_METHOD_NAME, userDefinedMessage, Constants.NOT_FOUND, Constants.DELETE_BOAT_METHOD_NAME)
+          }
+          logger.warn('Response from BoatController.findBoatById() end ', userDefinedMessage)
+        })
+        .catch(error => {
+          errorHandler.handleExceptionError(res, Constants.DELETE_BOAT_METHOD_NAME, (error as Error).message, Constants.INTERNAL_SERVER_ERROR, Constants.INTERNAL_SERVER_EXCEPTION, error)
+          logger.error('Exception occured in BoatController.findBoatById() method ', JSON.stringify(error))
+        })
     }
 }
 
