@@ -14,5 +14,6 @@ export class Constants {
     public static UPDATE_BOAT_METHOD_NAME = 'updateBoat'
     public static FIND_ALL_BOATS_METHOD_NAME = 'findAllBoats'
     public static DELETE_BOAT_METHOD_NAME = 'deleteBoat'
-    public static FIND_BOAT_BY_ID_METHOD_NAME = 'findBoatById'
+    public static FIND_BOAT_BY_ID_METHOD_NAME = 'findBoatById' 
+    public static BOAT_LIST='All boats list'
 }

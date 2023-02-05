@@ -52,6 +52,28 @@ export class BoatController {
      */
     public findAllBoats (req: Request, res: Response) {
       logger.info('BoatController.findAllBoats() method')
+      const boatServices:BoatServices = new BoatServices()
+      const errorHandler:ErrorHandler = new ErrorHandler()
+      let userDefinedMessage: string
+      connection
+        .then(async () => {
+          const boats = await boatServices.findAllBoats()
+          if (boats !== null && typeof (boats) !== Constants.UNDEFINED) {
+            res.status(Constants.OK)
+              .json({
+                message: Constants.BOAT_LIST,
+                boats: boats
+              })
+          } else {
+            userDefinedMessage = Constants.INVALID_DATA
+            errorHandler.handleValidationError(res, Constants.FIND_ALL_BOATS_METHOD_NAME, userDefinedMessage, Constants.NOT_FOUND, Constants.FIND_ALL_BOATS_METHOD_NAME)
+          }
+          logger.warn('Response from BoatController.findAllBoats() end ', userDefinedMessage)
+        })
+        .catch(error => {
+          errorHandler.handleExceptionError(res, Constants.FIND_ALL_BOATS_METHOD_NAME, (error as Error).message, Constants.INTERNAL_SERVER_ERROR, Constants.INTERNAL_SERVER_EXCEPTION, error)
+          logger.error('Exception occured in BoatController.findAllBoats() method ', JSON.stringify(error))
+        })
     }
 
     /**
@@ -95,8 +117,8 @@ export class BoatController {
  * Method to map the request entity to db entity for persistence.
  * Typeorm will throw run time error if request object is send
  * directly to database.
- * @param truck 
- * @param reqTruck 
+ * @param boat 
+ * @param reqBoat 
  * @returns 
  */
 function mapRequestToEntity(boat:Boat, reqBoat: Boat): Boat {
