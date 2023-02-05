@@ -14,7 +14,7 @@ const logger = require('../logger/logging')
 export class BoatController {
 
     /**
-     * Function to create add a new Boatto the swim lane
+     * Function to create add a new Boat to the swim lane
      * @param req 
      * @param res 
      */
