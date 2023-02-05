@@ -115,6 +115,30 @@ export class BoatController {
      */
     public findBoatsByStatus (req: Request, res: Response){
       logger.info('BoatController.findBoatsByStatus() method')
+      const boatServices:BoatServices = new BoatServices()
+      const errorHandler:ErrorHandler = new ErrorHandler()
+      let userDefinedMessage: string
+      connection
+        .then(async () => {
+          const status = req.query.status ? req.query.status.toString() : ''
+          console.log('status '+status)
+          const boats = await boatServices.findByStatus(status)
+          if (boats !== null && typeof (boats) !== Constants.UNDEFINED) {
+            res.status(Constants.OK)
+              .json({
+                message: Constants.BOAT_LIST,
+                boats: boats
+              })
+          } else {
+            userDefinedMessage = Constants.BOAT_NOT_FOUND_MESSAGE
+            errorHandler.handleValidationError(res, Constants.FIND_BOAT_BY_ID_METHOD_NAME, userDefinedMessage, Constants.NOT_FOUND, Constants.FIND_BOAT_BY_ID_METHOD_NAME)
+          }
+          logger.warn('Response from BoatController.findByStatus() end ', userDefinedMessage)
+        })
+        .catch(error => {
+          errorHandler.handleExceptionError(res, Constants.FIND_BOAT_BY_ID_METHOD_NAME, (error as Error).message, Constants.INTERNAL_SERVER_ERROR, Constants.INTERNAL_SERVER_EXCEPTION, error)
+          logger.error('Exception occured in BoatController.findByStatus() method ', JSON.stringify(error))
+        })
     }
 
     /**

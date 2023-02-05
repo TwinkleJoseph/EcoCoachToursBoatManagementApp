@@ -30,5 +30,8 @@ export class Routes {
             .put(this.boatController.updateBoat)
             .delete(this.boatController.deleteBoat)
 
+        // Search trucks with status
+        app.route('/search').get(this.boatController.findBoatsByStatus)    
+
     }
 }
