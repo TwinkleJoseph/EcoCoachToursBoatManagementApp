@@ -89,22 +89,22 @@ export class BoatController {
       connection
         .then(async () => {
           const boatId = req.params.id
-          const truck = await boatServices.findByBoatId(boatId)
-          if (truck !== null && typeof (truck) !== Constants.UNDEFINED) {
+          const boat = await boatServices.findByBoatId(boatId)
+          if (boat !== null && typeof (boat) !== Constants.UNDEFINED) {
             res.status(Constants.OK)
               .json({
                 message: Constants.BOAT_FOUND_MESSAGE,
-                truck: truck
+                boat: boat
               })
           } else {
             userDefinedMessage = Constants.BOAT_NOT_FOUND_MESSAGE
             errorHandler.handleValidationError(res, Constants.FIND_BOAT_BY_ID_METHOD_NAME, userDefinedMessage, Constants.NOT_FOUND, Constants.FIND_BOAT_BY_ID_METHOD_NAME)
           }
-          logger.warn('Response from TruckController.findTruckById() end ', userDefinedMessage)
+          logger.warn('Response from BoatController.findBoatById() end ', userDefinedMessage)
         })
         .catch(error => {
           errorHandler.handleExceptionError(res, Constants.FIND_BOAT_BY_ID_METHOD_NAME, (error as Error).message, Constants.INTERNAL_SERVER_ERROR, Constants.INTERNAL_SERVER_EXCEPTION, error)
-          logger.error('Exception occured in TruckController.findTruckById() method ', JSON.stringify(error))
+          logger.error('Exception occured in BoatController.findBoatById() method ', JSON.stringify(error))
         })
     }
 
@@ -124,6 +124,31 @@ export class BoatController {
      */
     public updateBoat(req: Request, res: Response){
       logger.info('BoatController.updateBoat() method')
+      const boatServices:BoatServices = new BoatServices()
+      const errorHandler:ErrorHandler = new ErrorHandler()
+      let userDefinedMessage: string
+      connection
+        .then(async () => {
+          const boatId = req.params.id
+          const boat = await boatServices.findByBoatId(boatId)
+          if (boat !== null && typeof (boat) !== Constants.UNDEFINED) {
+            mapRequestToEntity(boat,req.body)
+            await boatServices.createOrUpdateBoat(boat)
+            res.status(Constants.OK)
+              .json({
+                message: Constants.SUCCESSFULLY_UPDATED_MESSAGE,
+                boat: boat
+              })
+          } else {
+            userDefinedMessage = Constants.BOAT_NOT_FOUND_MESSAGE
+            errorHandler.handleValidationError(res, Constants.UPDATE_BOAT_METHOD_NAME, userDefinedMessage, Constants.NOT_FOUND, Constants.UPDATE_BOAT_METHOD_NAME)
+          }
+          logger.warn('Response from BoatController.updateBoat() end ', userDefinedMessage)
+        })
+        .catch(error => {
+          errorHandler.handleExceptionError(res, Constants.UPDATE_BOAT_METHOD_NAME, (error as Error).message, Constants.INTERNAL_SERVER_ERROR, Constants.INTERNAL_SERVER_EXCEPTION, error)
+          logger.error('Exception occured in BoatController.updateBoat() method ', JSON.stringify(error))
+        })
     }
 
     /**
