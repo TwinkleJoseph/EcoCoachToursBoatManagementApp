@@ -83,6 +83,29 @@ export class BoatController {
      */
     public findBoatById (req: Request, res: Response){
       logger.info('BoatController.findBoatById() method')
+      const boatServices:BoatServices = new BoatServices()
+      const errorHandler:ErrorHandler = new ErrorHandler()
+      let userDefinedMessage: string
+      connection
+        .then(async () => {
+          const boatId = req.params.id
+          const truck = await boatServices.findByBoatId(boatId)
+          if (truck !== null && typeof (truck) !== Constants.UNDEFINED) {
+            res.status(Constants.OK)
+              .json({
+                message: Constants.BOAT_FOUND_MESSAGE,
+                truck: truck
+              })
+          } else {
+            userDefinedMessage = Constants.BOAT_NOT_FOUND_MESSAGE
+            errorHandler.handleValidationError(res, Constants.FIND_BOAT_BY_ID_METHOD_NAME, userDefinedMessage, Constants.NOT_FOUND, Constants.FIND_BOAT_BY_ID_METHOD_NAME)
+          }
+          logger.warn('Response from TruckController.findTruckById() end ', userDefinedMessage)
+        })
+        .catch(error => {
+          errorHandler.handleExceptionError(res, Constants.FIND_BOAT_BY_ID_METHOD_NAME, (error as Error).message, Constants.INTERNAL_SERVER_ERROR, Constants.INTERNAL_SERVER_EXCEPTION, error)
+          logger.error('Exception occured in TruckController.findTruckById() method ', JSON.stringify(error))
+        })
     }
 
     /**
