@@ -1,44 +1,17 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import "../styles/App.css";
 
-const data = [
-    { id: 1, name: 'Endless Summer', status: 'Docked' },
-    { id: 2, name: 'Amazing Grace', status: 'Outbound to Sea' },
-    { id: 3, name: 'Blue Miracle', status: 'Inbound to Harbor' },
-    { id: 3, name: 'Below Deck', status: 'Maintenance' }
-  ];
+const SwimLane = ({ status, boats }) => {
+    return (
+      <div style={{ marginRight: 8 }}>
+        <h3>{status}</h3>
+        {boats.map(boat => (
+          <div key={boat.id} style={{ marginBottom: 8, padding: 8, backgroundColor: '#f2f2f2' }}>
+            {boat.name}
+          </div>
+        ))}
+      </div>
+    );
+};
 
-class SwimLane extends Component {  
-
-  state = {
-    addingList: false
-  };
-
-    render() {        
-        const { swimlane } = this.props;    
-        return (
-            <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Boat Name</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map(item => (
-                <tr key={item.id}>
-                  <td>{item.id}</td>
-                  <td>{item.name}</td>
-                  <td>{item.status}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        );
-      }
-
-}
-
-const mapStateToProps = state => ({ swimlane: state.swimlane });
-export default connect(mapStateToProps)(SwimLane);
+export default SwimLane;

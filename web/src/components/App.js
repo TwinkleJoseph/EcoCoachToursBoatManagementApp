@@ -1,5 +1,5 @@
 import "../styles/App.css";
-import SwimLane from "./SwimLane"
+import Pool from "./Pool"
 
 import React, { Component } from "react";
 
@@ -12,7 +12,7 @@ class App extends Component {
       <div className="App">
         <div className="Header">Echo Tours Boat Tracker</div>
 
-        <SwimLane />
+        <Pool />
       </div>
     );
   }
