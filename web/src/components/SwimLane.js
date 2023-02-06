@@ -1,5 +1,6 @@
 import React, { useState, useEffect  } from 'react';
 import "../styles/App.css";
+import Boat from './Boat';
 
 const SwimLane = ({ status }) => {
     
@@ -20,12 +21,10 @@ const SwimLane = ({ status }) => {
       fetchData();
     }, []);    
     return (
-      <div style={{ marginRight: 8 }}>
+      <div id="swimlane" style={{ marginRight: 8 }}>
         <h3>{status}</h3>
-        {boats.map(boat => (
-          <div key={boat.id} style={{ marginBottom: 8, padding: 8, backgroundColor: '#f2f2f2' }}>
-            {boat.vesselName}
-          </div>
+        {boats.map(boat => (         
+          <Boat key={boat.id} data={boat}/>
         ))}
       </div>
     );
