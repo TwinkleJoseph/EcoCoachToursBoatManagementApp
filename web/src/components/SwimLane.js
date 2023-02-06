@@ -19,13 +19,28 @@ const SwimLane = ({ status }) => {
       };
 
       fetchData();
-    }, []);    
+    }, []); 
+
+    const addBoat = (vesselName, portOfRegistration) => {
+      setBoats([...boats, { vesselName, portOfRegistration }]);
+    };
+
+    const deleteBoat = (index) => {
+      setBoats(boats.filter((boat, i) => i !== index));
+    };
     return (
       <div id="swimlane" style={{ marginRight: 8 }}>
         <h3>{status}</h3>
-        {boats.map(boat => (         
-          <Boat key={boat.id} data={boat}/>
+        {boats.map((boat,index) => (         
+          <Boat 
+            key={boat.id} 
+            data={boat}
+            index={index}
+            deleteBoat={deleteBoat}/>
         ))}
+        <button onClick={() => addBoat("New Boat", "Victoria")}>
+        Add Boat
+      </button>
       </div>
     );
 };
