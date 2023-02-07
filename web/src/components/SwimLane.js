@@ -3,8 +3,13 @@ import "../styles/App.css";
 import Boat from "./Boat";
 import AddBoat from "./AddBoat";
 
+/**
+ * Abstraction of a Swimlanes that holds
+ * boats. Boats could be added or deleted.
+ *  
+ */
 
-const baseUrl = "http://localhost:8000";
+const baseUrl = "http://localhost:5000";
 
 
 const SwimLane = ({ status }) => {
@@ -17,7 +22,6 @@ const SwimLane = ({ status }) => {
         const response = await fetch(searchUrl);
         const json = await response.json();
         setBoats(json.boats);
-        //setBoats(json);
       } catch (error) {
         console.log("error", error);
       }
@@ -27,7 +31,6 @@ const SwimLane = ({ status }) => {
   }, []);
 
   const addBoat = ({ name, port }) => {
-    // setBoats([...boats, { vesselName: name, portOfRegistration: port }]);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -35,9 +38,6 @@ const SwimLane = ({ status }) => {
     };
     const postUrl = `${baseUrl}/boat`
     fetch(postUrl, requestOptions).then((response) => {
-      // setBoats(response.json()); // if full response from server
-      // setBoats([...boats, response]); // if only one data from server
-      // setBoats([...boats, ...response]);
       setBoats([...boats, { vesselName: name, portOfRegistration: port, status }]);
     });
 

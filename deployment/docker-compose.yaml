@@ -32,6 +32,7 @@ services:
       DB_PORT: ${DB_PORT}
       PORT: ${PORT}
       LOG_LEVEL: ${LOG_LEVEL} 
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
 
   react-web:
     build:
