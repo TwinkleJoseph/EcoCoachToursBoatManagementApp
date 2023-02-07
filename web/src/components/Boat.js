@@ -4,7 +4,7 @@ import "../styles/App.css";
 const Boat = ({ data,index,deleteBoat }) => {    
    
     return (
-        <div key={data.id} style={{ marginBottom: 8, padding: 8, backgroundColor: '#f2f2f2' }}>
+        <div key={data.id} className="boat">
             <h4>{data.vesselName}</h4>
             <p>{data.portOfRegistration}</p>
             <button onClick={() => deleteBoat(index)}>Delete</button>

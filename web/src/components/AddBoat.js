@@ -1,15 +1,41 @@
-import React from 'react';
+import React, { useState } from "react";
 import "../styles/App.css";
 
-const AddBoat = ({ data,index,deleteBoat }) => {    
-   
-    return (
-        <div key={data.id} style={{ marginBottom: 8, padding: 8, backgroundColor: '#f2f2f2' }}>
-            <h4>{data.vesselName}</h4>
-            <p>{data.portOfRegistration}</p>
-            <button onClick={() => deleteBoat(index)}>Delete</button>
-      </div>
-    );
+
+const AddBoat = ({ id, onAddBoat }) => {
+  const [boatName, setBoatName] = useState("");
+  const [port, setPort] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onAddBoat({ name: boatName, port, id });
+    setBoatName("");
+  };
+
+  return (
+    <div className="boat">
+      <form onSubmit={handleSubmit}>
+        <h4>
+          {" "}
+          <input
+            type="text"
+            value={boatName}
+            onChange={(e) => setBoatName(e.target.value)}
+            placeholder="Enter vessel name"
+          />
+        </h4>
+        <p>
+          {" "}
+          <textarea
+            value={port}
+            onChange={(e) => setPort(e.target.value)}
+            placeholder="Port of Registration"
+          ></textarea>
+        </p>
+        <button type="submit">Add Boat</button>
+      </form>
+    </div>
+  );
 };
 
 export default AddBoat;

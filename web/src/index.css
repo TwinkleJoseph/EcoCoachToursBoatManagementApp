@@ -11,3 +11,10 @@ body {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
   }
+
+  .boat {
+    min-width: 200px;
+    margin-bottom: 8px;
+    padding: 8px;
+    background-color: #f2f2f2;
+  }
