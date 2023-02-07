@@ -33,5 +33,19 @@ services:
       PORT: ${PORT}
       LOG_LEVEL: ${LOG_LEVEL} 
 
+  react-web:
+    build:
+      dockerfile: web/Dockerfile
+      context: "./../"
+    image: web:latest
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    volumes:      
+      - ./../web:/react-web
+      - /react-web/node_modules
+    environment:
+      REACT_APP_API_URL: ${REACT_APP_API_URL}   
+
 volumes: 
   pgdata:      
