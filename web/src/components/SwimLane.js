@@ -10,9 +10,6 @@ import apiBaseUrl from "../config";
  *  
  */
 
-//const baseUrl = "http://localhost:5000";
-
-
 const SwimLane = ({ status }) => {
   const [boats, setBoats] = useState([]);
   const [showAddBoat, setAddBoat] = useState(false);
@@ -37,7 +34,7 @@ const SwimLane = ({ status }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ vesselName: name, portOfRegistration: port, status }),
     };
-    const postUrl = `${baseUrl}/boat`
+    const postUrl = `${apiBaseUrl}/boat`
     fetch(postUrl, requestOptions).then((response) => {
       setBoats([...boats, { vesselName: name, portOfRegistration: port, status }]);
     });
@@ -46,7 +43,7 @@ const SwimLane = ({ status }) => {
   };
 
   const deleteBoat = (boatId) => {
-    fetch(`${baseUrl}/boat/${boatId}`, { method: "DELETE" }).then(
+    fetch(`${apiBaseUrl}/boat/${boatId}`, { method: "DELETE" }).then(
       () => {
         console.log("boats", boats);
         setBoats(boats.filter((boat, i) => boat.id !== boatId));
