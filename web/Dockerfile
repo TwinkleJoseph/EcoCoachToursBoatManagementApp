@@ -2,6 +2,9 @@ FROM node:14.17.0-alpine
 
 WORKDIR /react-web/app
 
+RUN set -x \
+	&& chmod -R 777 /react-web/app
+
 COPY package-lock.json /react-web/app/package-lock.json
 COPY package.json /react-web/app/package.json
 
