@@ -1,8 +1,10 @@
 FROM node:14.17.0-alpine
 
-WORKDIR /react-web
+WORKDIR /react-web/app
 
-COPY /web/package*.json ./
+COPY package-lock.json /react-web/app/package-lock.json
+COPY package.json /react-web/app/package.json
+
 RUN npm install
 
 EXPOSE 3000
