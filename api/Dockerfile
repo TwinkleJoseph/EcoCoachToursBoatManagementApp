@@ -7,10 +7,6 @@ WORKDIR /app
 RUN set -x \
 	&& chmod -R 777 /app/
 
-RUN pwd
-
-RUN ls
-
 ## Include details of the required dependencies
 COPY package-lock.json /app/package-lock.json
 COPY package.json /app/package.json
