@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../styles/App.css";
 import Boat from "./Boat";
 import AddBoat from "./AddBoat";
-import apiBaseUrl from "../config";
 
 /**
  * Abstraction of a Swimlanes that holds
@@ -16,7 +15,7 @@ const SwimLane = ({ status }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {        
-        const searchUrl = `${apiBaseUrl}/search?status=${status}`;
+        const searchUrl = `/api/search?status=${status}`;
         const response = await fetch(searchUrl);
         const json = await response.json();
         setBoats(json.boats);
@@ -34,7 +33,7 @@ const SwimLane = ({ status }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ vesselName: name, portOfRegistration: port, status }),
     };
-    const postUrl = `${apiBaseUrl}/boat`
+    const postUrl = `/api/boat`
     fetch(postUrl, requestOptions).then((response) => {
       setBoats([...boats, { vesselName: name, portOfRegistration: port, status }]);
     });
@@ -43,7 +42,7 @@ const SwimLane = ({ status }) => {
   };
 
   const deleteBoat = (boatId) => {
-    fetch(`${apiBaseUrl}/boat/${boatId}`, { method: "DELETE" }).then(
+    fetch(`/api/boat/${boatId}`, { method: "DELETE" }).then(
       () => {
         console.log("boats", boats);
         setBoats(boats.filter((boat, i) => boat.id !== boatId));

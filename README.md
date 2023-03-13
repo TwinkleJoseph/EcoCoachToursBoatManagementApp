@@ -14,14 +14,14 @@ Check out the README files under deployment folder for build and deployment.
 
 ## Important Links 
 Web Application (Under development): http://localhost:3000/      
-REST API URL : http://localhost:5000/  
-health check : http://localhost:5000/health  
-GET all boats: http://localhost:5000/boat  
-GET boat by Id: http://localhost:5000/boat/:id  
-Add a new boat: http://localhost:5000/boat (POST)  
-Update a boat: http://localhost:5000/boat/:id (PUT)  
-Delete a boat: http://localhost:5000/boat/:id (DELETE)  
-Search boat by status : http://localhost:5000/search?status=Docked  
+REST API URL : http://localhost:5000/api/  
+health check : http://localhost:5000/api/health  
+GET all boats: http://localhost:5000/api/boat  
+GET boat by Id: http://localhost:5000/api/boat/:id  
+Add a new boat: http://localhost:5000/api/boat (POST)  
+Update a boat: http://localhost:5000/api/boat/:id (PUT)  
+Delete a boat: http://localhost:5000/api/boat/:id (DELETE)  
+Search boat by status : http://localhost:5000/api/search?status=Docked  
 
 ## Author
 Twinkle Joseph     

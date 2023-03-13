@@ -17,21 +17,21 @@ export class Routes {
         log.info('Routes.routes() start')
 
         // This "health check" route can be used to verify if the server is up.
-        app.route('/health').get((_req:Request, resp: Response) => {
+        app.route('/api/health').get((_req:Request, resp: Response) => {
             resp.status(Constants.OK).send({ message: 'Boat API started successfully!' })
         })
 
         // Operations for boat entity are defined here. Get all boat, Create new boat
-        app.route('/boat').get(this.boatController.findAllBoats)
+        app.route('/api/boat').get(this.boatController.findAllBoats)
             .post(this.boatController.createBoat)            
 
         // Operations for a selected boat
-        app.route('/boat/:id').get(this.boatController.findBoatById)
+        app.route('/api/boat/:id').get(this.boatController.findBoatById)
             .put(this.boatController.updateBoat)
             .delete(this.boatController.deleteBoat)
 
         // Search trucks with status
-        app.route('/search').get(this.boatController.findBoatsByStatus)    
+        app.route('/api/search').get(this.boatController.findBoatsByStatus)    
 
     }
 }
