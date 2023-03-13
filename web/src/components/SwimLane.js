@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/App.css";
 import Boat from "./Boat";
 import AddBoat from "./AddBoat";
+import apiBaseUrl from "../config";
 
 /**
  * Abstraction of a Swimlanes that holds
@@ -9,7 +10,7 @@ import AddBoat from "./AddBoat";
  *  
  */
 
-const baseUrl = "http://localhost:5000";
+//const baseUrl = "http://localhost:5000";
 
 
 const SwimLane = ({ status }) => {
@@ -18,7 +19,7 @@ const SwimLane = ({ status }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {        
-        const searchUrl = `${baseUrl}/search?status=${status}`;
+        const searchUrl = `${apiBaseUrl}/search?status=${status}`;
         const response = await fetch(searchUrl);
         const json = await response.json();
         setBoats(json.boats);
